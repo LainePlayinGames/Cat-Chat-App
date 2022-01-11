@@ -2,7 +2,8 @@
 <html>
 <head>
 	<title>CatChat</title>
-	<link rel="icon" type="icon" href="/images/favicon.ico">
+	<link rel="icon" type="icon" href="https://art.pixilart.com/423a211cd945da2.png">
+
 	<style>
 		body {
 			margin: 0;
@@ -59,9 +60,10 @@
 		}
 
 		#messages>li:nth-child(odd) {
-			background: #009c1b;
+			background: #610000;
 		}
 	</style>
+		<img src="https://art.pixilart.com/423a211cd945da2.png" alt="Logo" width="25" height="25">
 </head>
 
 <body>
@@ -73,6 +75,9 @@
 
     <script>
       var socket = io();
+
+			var name = prompt('Type username here');
+			
 
 			var inFocus = 0;
 			var unread = 0;
