@@ -3,13 +3,15 @@
 <head>
 	<title>CatChat</title>
 	<link rel="icon" type="icon" href="https://art.pixilart.com/423a211cd945da2.png">
+	<label id="time">Time Wasted: </label>
+	<label id="minutes">00</label>:<label id="seconds">00</label>
 
 	<style>
 		body {
 			margin: 0;
 			padding-bottom: 3rem;
 			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-			background: #000000;
+			background: #1E377F;
 		}
 
 		#form {
@@ -24,10 +26,15 @@
 			box-sizing: border-box;
 			backdrop-filter: blur(10px);
 		}
+		#label {
+			color #fffff;
+		}
 
 		#input {
 			border: none;
 			padding: 0 1rem;
+			background: #2C2C2C;
+			color: #ffffff;
 			flex-grow: 1;
 			border-radius: 2rem;
 			margin: 0.25rem;
@@ -52,7 +59,7 @@
 			margin: 0;
 			padding: 0;
 			color: #FFFF00;
-			background: #ff0000;
+			background: #000000;
 		}
 
 		#messages>li {
@@ -60,7 +67,7 @@
 		}
 
 		#messages>li:nth-child(odd) {
-			background: #610000;
+			background: #00000;
 		}
 	</style>
 		<img src="https://art.pixilart.com/423a211cd945da2.png" alt="Logo" width="25" height="25">
@@ -75,10 +82,30 @@
 
     <script>
       var socket = io();
+var minutesLabel = document.getElementById("minutes");
+var secondsLabel = document.getElementById("seconds");
+var totalSeconds = 0;
+setInterval(setTime, 1000);
 
-			var name = prompt('Type username here');
+function setTime() {
+  ++totalSeconds;
+  secondsLabel.innerHTML = pad(totalSeconds % 60);
+  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+}
+
+function pad(val) {
+  var valString = val + "";
+  if (valString.length < 2) {
+    return "0" + valString;
+  } else {
+    return valString;
+  }
+}
+			var nickname = prompt('Type username here');
+
+
+			socket.emit('send-nickname', nickname);
 			
-
 			var inFocus = 0;
 			var unread = 0;
 		
@@ -104,18 +131,19 @@
 			form.addEventListener('submit', function(e) {
         e.preventDefault();
         if (input.value) {
+
           socket.emit('chat message', input.value);
           input.value = '';
         }
       });
 
       socket.on('chat message', function(msg) {
-				if (msg.startsWith("*/", 0)){
+				if (msg.startsWith("dnfiusdbfdiuhudsif", 0)){
 					var item = document.createElement('b');
-        	item.textContent = "⚠️SYSTEM MESSAGE⚠️    " + msg.substring(2);
+					var blank = document.createElement('li');
+        	item.textContent = msg
         	messages.appendChild(item);
        	 	window.scrollTo(0, document.body.scrollHeight);
-					var blank = document.createElement('li');
 					blank.textContent = "";
 					messages.appendChild(blank);
 					window.scrollTo(0, document.body.scrollHeight);
