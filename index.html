@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>CatChat</title>
-	<link rel="icon" type="icon" href="https://art.pixilart.com/423a211cd945da2.png">
-	<label id="time">Time Wasted: </label>
-	<label id="minutes">00</label>:<label id="seconds">00</label>
+
+
 
 	<style>
 		body {
@@ -14,10 +14,17 @@
 			background: #1E377F;
 		}
 
+		#copyRight {
+			font-size: 20px;
+			text-allign: right;
+			margin-right: 0px;
+		}
+
 		#form {
 			background: rgba(0, 0, 0, 0.25);
 			padding: 0.25rem;
 			position: fixed;
+
 			bottom: 0;
 			left: 0;
 			right: 0;
@@ -26,6 +33,7 @@
 			box-sizing: border-box;
 			backdrop-filter: blur(10px);
 		}
+
 		#label {
 			color #fffff;
 		}
@@ -40,58 +48,76 @@
 			margin: 0.25rem;
 		}
 
+		#admin {}
+
 		#input:focus {
 			outline: none;
+		}
+
+		#uno scroll {
+			width: 75%;
+			float: left;
+
+		}
+
+		#dos {
+			margin-left: 25%
 		}
 
 		#form>button {
 			background: #2243b6;
 			border: none;
 			padding: 0 1rem;
-			margin: 0.25rem;
-			border-radius: 3px;
+			margin: 0.2rem;
+			border-radius: 2px;
+			border-color: red;
 			outline: none;
 			color: #fff;
 		}
 
 		#messages {
 			list-style-type: none;
+
 			margin: 0;
+			text-allign: center;
+			border-radius: 10px;
 			padding: 0;
 			color: #FFFF00;
-			background: #000000;
+
 		}
 
 		#messages>li {
-			padding: 0.5rem 1rem;
+			border: none;
+			padding: .5rem 0.5rem;
+			margin: 0.5rem;
+			text-allign: center;
+			border-radius: 25px;
+			font-size: 25px;
+			background-color: #000000;
+			border-color: red;
+			outline: none;
+			color: #fff;
 		}
 
 		#messages>li:nth-child(odd) {
-			background: #00000;
+			background: #617777;
 		}
 	</style>
-		<img src="https://art.pixilart.com/423a211cd945da2.png" alt="Logo" width="25" height="25">
+
 </head>
 
 <body>
-	<ul id="messages"></ul>
-	<form id="form" action="">
-		<input id="input" autocomplete="off" /><button>Send</button>
+	<div class='parent'>
+		<div id=uno class='child float-left-child scroll'>
+			<ul id="messages"></ul>
+			<form id="form" action="">
+				<input id="input" autocomplete="off" /><button>Send</button>
     </form>
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="/socket.io/socket.io.js">
+	</script>
 
-    <script>
-      var socket = io();
-var minutesLabel = document.getElementById("minutes");
-var secondsLabel = document.getElementById("seconds");
-var totalSeconds = 0;
-setInterval(setTime, 1000);
-
-function setTime() {
-  ++totalSeconds;
-  secondsLabel.innerHTML = pad(totalSeconds % 60);
-  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
-}
+	<script>
+		var socket = io();
 
 function pad(val) {
   var valString = val + "";
@@ -114,6 +140,7 @@ function pad(val) {
       var input = document.getElementById('input');
 
 			var focused = true;
+
 		
 
 			window.onfocus = function() {
@@ -173,8 +200,33 @@ function pad(val) {
 					document.title = unread + " unread messages!"
 				}
       });
+	</script>
+	</div>
+	<div id=dos class='child float-left-child'>
+		<link rel="icon" type="icon" href="https://art.pixilart.com/423a211cd945da2.png">
 
-			
-    </script>
+		<label id="time">Time Wasted: </label>
+	<label id="minutes">00</label>:<label id="seconds">00</label>
+			<img src="https://art.pixilart.com/423a211cd945da2.png" alt="Logo" width="50" height="50">
+			<t id="copyRight" size=8>©LaineSnepper 2022</t>
+			<button id=admin>Admin</button>
+				<script>
+		var minutesLabel = document.getElementById("minutes");
+var secondsLabel = document.getElementById("seconds");
+var totalSeconds = 0;
+setInterval(setTime, 1000);
+
+function setTime() {
+  ++totalSeconds;
+  secondsLabel.innerHTML = pad(totalSeconds % 60);
+  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+}
+
+ 
+	</script>
+	</div>
+</div>
+	
+
   </body>
 </html>
