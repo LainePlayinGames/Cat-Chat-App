@@ -61,7 +61,7 @@
 		}
 
 		#dos {
-			margin-left: 25%
+			margin-left: 0%
 		}
 
 		#form>button {
@@ -128,19 +128,23 @@ function pad(val) {
   }
 }
 			var nickname = prompt('Type username here');
+			if(nickname == undefined || nickname == null){
+				nickname = prompt('Please actually type a username loser');
+			}
 
 
 			socket.emit('send-nickname', nickname);
 			
 			var inFocus = 0;
 			var unread = 0;
+
 		
       var messages = document.getElementById('messages');
       var form = document.getElementById('form');
       var input = document.getElementById('input');
 
 			var focused = true;
-
+ 
 		
 
 			window.onfocus = function() {
@@ -208,25 +212,28 @@ function pad(val) {
 		<label id="time">Time Wasted: </label>
 	<label id="minutes">00</label>:<label id="seconds">00</label>
 			<img src="https://art.pixilart.com/423a211cd945da2.png" alt="Logo" width="50" height="50">
-			<t id="copyRight" size=8>©LaineSnepper 2022</t>
+			<t id="copyRight" size=8>©LaineSnepper 2022 :: Version 0.0.7</t>
 			<button id=admin>Admin</button>
+			<label id="uptime">Server Uptime: </label>
+			<label id="uptimeCount">00</label>
 				<script>
 		var minutesLabel = document.getElementById("minutes");
 var secondsLabel = document.getElementById("seconds");
-var totalSeconds = 0;
+      var upti = document.getElementById('uptimeCount');
 setInterval(setTime, 1000);
-
+socket.on('uptime', function(msg) {
+	upti.textContent = msg;
+	console.log("DONE");
+});
+var totalSeconds = 0;
 function setTime() {
   ++totalSeconds;
   secondsLabel.innerHTML = pad(totalSeconds % 60);
   minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
 }
-
- 
 	</script>
+	 </body>
 	</div>
 </div>
-	
-
-  </body>
+ 
 </html>
