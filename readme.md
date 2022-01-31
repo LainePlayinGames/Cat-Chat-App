@@ -27,6 +27,7 @@ CC is going to be a very expansive chatting platform, (hopefully) complete with 
 	 - Bot Support
 	 - Sleek UI
 	 - Event/Meet System
+	 - Location based meeting system (similar to Howlr)
 # Recruitment
 If you find yourself interested enough to become part of our development team, please contact me on discord @ **LaineGamin#9999**
 
