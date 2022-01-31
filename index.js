@@ -5,7 +5,7 @@ const port = process.env.PORT || 3000;
 
 
 var nickname;
-
+var debug = true;
 let messages = ['test', 'test2']
 
 var timeText;
@@ -16,11 +16,12 @@ var seconds = 0;
 var minutes = 0;
 var hours = 0;
 var days = 0;
-
-var intervalID = setInterval(sendMessage, [1000]);
+if (debug) {
+	var intervalID = setInterval(sendMessage, [1000]);
+}
 
 function sendMessage() {
-  console.log("");
+	/*console.log("");
 	console.log("System check #" + reportNumber);
 	console.log("Connected Clients: " + connectedUserCount);
 	console.log("Total Chats Sent: " + totalMessages);
@@ -30,21 +31,24 @@ function sendMessage() {
 	console.log(minutes + " Minutes");
 	console.log(hours + " Hours");
 	console.log(days + " Days");
-	io.emit('uptime',(days + ":" + hours + ":" + minutes + ":" + seconds) )
+	*/
+	io.emit('uptime', (days + ":" + hours + ":" + minutes + ":" + seconds));
+	io.emit('count', connectedUserCount);
 	reportNumber++;
 	seconds++;
 	countUp();
 }
+
 function countUp() {
-  if(seconds >= 60){
+	if (seconds >= 60) {
 		seconds = 0;
 		minutes++;
 	}
-	if(minutes >= 60){
+	if (minutes >= 60) {
 		minutes = 0;
 		hours++;
 	}
-	if(hours >= 24){
+	if (hours >= 24) {
 		hours = 0;
 		days++;
 	}
@@ -57,6 +61,7 @@ io.on('connection', (socket) => {
 	console.log(socket.handshake.address);
 	var client_ip_address = socket.request.connection.remoteAddress;
 	socket.on('chat message', msg => {
+		
 		io.emit('chat message', socket.nickname + " >> " + msg);
 		let newLength = messages.push(socket.nickname + " >> " + msg);
 		console.log("");
@@ -81,8 +86,8 @@ io.on('connection', (socket) => {
 http.listen(port, () => {
 	console.log(`Socket.IO server running at http://localhost:${port}/`);
 });
-io.on('connection', function (socket) {
-	socket.on('send-nickname', function (nickname) {
+io.on('connection', function(socket) {
+	socket.on('send-nickname', function(nickname) {
 		if (nickname == "") {
 			// Send a new call to get a valid username.
 			return;

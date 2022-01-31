@@ -1,30 +1,23 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-	<title>CatChat</title>
-
-
-
-	<style>
-		body {
+	<head>
+		<title>CatChat</title>
+		<style>
+			body {
 			margin: 0;
 			padding-bottom: 3rem;
 			font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-			background: #1E377F;
-		}
-
-		#copyRight {
+			background: #4B88A2;
+			}
+			#copyRight {
 			font-size: 20px;
 			text-allign: right;
 			margin-right: 0px;
-		}
-
-		#form {
+			}
+			#form {
 			background: rgba(0, 0, 0, 0.25);
 			padding: 0.25rem;
 			position: fixed;
-
 			bottom: 0;
 			left: 0;
 			right: 0;
@@ -32,13 +25,11 @@
 			height: 3rem;
 			box-sizing: border-box;
 			backdrop-filter: blur(10px);
-		}
-
-		#label {
+			}
+			#label {
 			color #fffff;
-		}
-
-		#input {
+			}
+			#input {
 			border: none;
 			padding: 0 1rem;
 			background: #2C2C2C;
@@ -46,26 +37,23 @@
 			flex-grow: 1;
 			border-radius: 2rem;
 			margin: 0.25rem;
-		}
-
-		#admin {}
-
-		#input:focus {
+			}
+			#admin {}
+			#input:focus {
 			outline: none;
-		}
-
-		#uno scroll {
+			}
+			#uno scroll {
 			width: 75%;
 			float: left;
-
-		}
-
-		#dos {
+			}
+			#dos {
+			top: 0;
+ 		  position: fixed
 			margin-left: 0%
-		}
+			}
 
-		#form>button {
-			background: #2243b6;
+			#form>button {
+			background: #BB0A21;
 			border: none;
 			padding: 0 1rem;
 			margin: 0.2rem;
@@ -73,167 +61,161 @@
 			border-color: red;
 			outline: none;
 			color: #fff;
-		}
-
-		#messages {
+			}
+			#messages {
 			list-style-type: none;
-
 			margin: 0;
 			text-allign: center;
 			border-radius: 10px;
 			padding: 0;
-			color: #FFFF00;
-
-		}
-
-		#messages>li {
+			color: #D90429;
+			}
+			#messages>li {
 			border: none;
 			padding: .5rem 0.5rem;
 			margin: 0.5rem;
 			text-allign: center;
 			border-radius: 25px;
 			font-size: 25px;
-			background-color: #000000;
+			background-color: #D90429;
 			border-color: red;
 			outline: none;
 			color: #fff;
-		}
-
-		#messages>li:nth-child(odd) {
-			background: #617777;
-		}
-	</style>
-
-</head>
-
-<body>
-	<div class='parent'>
-		<div id=uno class='child float-left-child scroll'>
-			<ul id="messages"></ul>
-			<form id="form" action="">
-				<input id="input" autocomplete="off" /><button>Send</button>
-    </form>
-    <script src="/socket.io/socket.io.js">
-	</script>
-
-	<script>
-		var socket = io();
-
-function pad(val) {
-  var valString = val + "";
-  if (valString.length < 2) {
-    return "0" + valString;
-  } else {
-    return valString;
-  }
-}
-			var nickname = prompt('Type username here');
-			if(nickname == undefined || nickname == null){
-				nickname = prompt('Please actually type a username loser');
 			}
-
-
-			socket.emit('send-nickname', nickname);
-			
-			var inFocus = 0;
-			var unread = 0;
-
-		
-      var messages = document.getElementById('messages');
-      var form = document.getElementById('form');
-      var input = document.getElementById('input');
-
-			var focused = true;
- 
-		
-
-			window.onfocus = function() {
-			    focused = true;
-					console.log('Focused = '+ focused);
-					document.title = "CatChat";
-					unread = 0;
-			};
-			window.onblur = function() {
-			    focused = false;
-					console.log('Focused = '+ focused);
-					document.title = "CatChat";
-			};		
-			
-			form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        if (input.value) {
-
-          socket.emit('chat message', input.value);
-          input.value = '';
-        }
-      });
-
-      socket.on('chat message', function(msg) {
-				if (msg.startsWith("dnfiusdbfdiuhudsif", 0)){
-					var item = document.createElement('b');
-					var blank = document.createElement('li');
-        	item.textContent = msg
-        	messages.appendChild(item);
-       	 	window.scrollTo(0, document.body.scrollHeight);
-					blank.textContent = "";
-					messages.appendChild(blank);
-					window.scrollTo(0, document.body.scrollHeight);
-				}else{
-        var item = document.createElement('li');
-        item.textContent = msg;
-        messages.appendChild(item);
-        window.scrollTo(0, document.body.scrollHeight);
-				}
-				if (!focused){
-					unread++;
-					document.title = unread + " unread messages!"
-				}
-      });
-			
-			socket.on('system message', function(msg) {
-        var item = document.createElement('b');
-        item.textContent = msg;
-        messages.appendChild(item);
-        window.scrollTo(0, document.body.scrollHeight);
-				var blank = document.createElement('li');
-				blank.textContent = "";
-				messages.appendChild(blank);
-				window.scrollTo(0, document.body.scrollHeight);
-				if (!focused){
-					unread++;
-					document.title = unread + " unread messages!"
-				}
-      });
-	</script>
-	</div>
-	<div id=dos class='child float-left-child'>
-		<link rel="icon" type="icon" href="https://art.pixilart.com/423a211cd945da2.png">
-
-		<label id="time">Time Wasted: </label>
-	<label id="minutes">00</label>:<label id="seconds">00</label>
-			<img src="https://art.pixilart.com/423a211cd945da2.png" alt="Logo" width="50" height="50">
-			<t id="copyRight" size=8>©LaineSnepper 2022 :: Version 0.0.7</t>
-			<button id=admin>Admin</button>
-			<label id="uptime">Server Uptime: </label>
-			<label id="uptimeCount">00</label>
+			#messages>li:nth-child(odd) {
+			background-color: #AA2020;
+			}
+		</style>
+	</head>
+	<body>
+		<div class='parent'>
+			<div id=uno class='child float-left-child scroll'>
+				<ul id="messages"></ul>
+				<form id="form" action="">
+					<input id="input" autocomplete="off" /><button>Send</button>
+				</form>
+				<script src="/socket.io/socket.io.js"></script>
 				<script>
-		var minutesLabel = document.getElementById("minutes");
-var secondsLabel = document.getElementById("seconds");
-      var upti = document.getElementById('uptimeCount');
-setInterval(setTime, 1000);
-socket.on('uptime', function(msg) {
-	upti.textContent = msg;
-	console.log("DONE");
-});
-var totalSeconds = 0;
-function setTime() {
-  ++totalSeconds;
-  secondsLabel.innerHTML = pad(totalSeconds % 60);
-  minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
-}
-	</script>
-	 </body>
+					var socket = io();
+					
+					function pad(val) {
+					var valString = val + "";
+					if (valString.length < 2) {
+					  return "0" + valString;
+					} else {
+					  return valString;
+					}
+					}
+						var nickname = prompt('Type username here');
+						if(nickname == undefined || nickname == null){
+							nickname = prompt('Please actually type a username, loser');
+						}
+					
+					
+						socket.emit('send-nickname', nickname);
+						
+						var inFocus = 0;
+						var unread = 0;
+					
+					
+					    var messages = document.getElementById('messages');
+					    var form = document.getElementById('form');
+					    var input = document.getElementById('input');
+					
+						var focused = true;
+					
+					
+					
+						window.onfocus = function() {
+						    focused = true;
+								console.log('Focused = '+ focused);
+								document.title = "CatChat";
+								unread = 0;
+						};
+						window.onblur = function() {
+						    focused = false;
+								console.log('Focused = '+ focused);
+								document.title = "CatChat";
+						};		
+						
+						form.addEventListener('submit', function(e) {
+					      e.preventDefault();
+					      if (input.value) {
+					
+					        socket.emit('chat message', input.value);
+					        input.value = '';
+					      }
+					    });
+					
+					    socket.on('chat message', function(msg) {
+							if (msg.startsWith("dnfiusdbfdiuhudsif", 0)){
+								var item = document.createElement('b');
+								var blank = document.createElement('li');
+					      	item.textContent = msg
+					      	messages.appendChild(item);
+					     	 	window.scrollTo(0, document.body.scrollHeight);
+								blank.textContent = "";
+								messages.appendChild(blank);
+								window.scrollTo(0, document.body.scrollHeight);
+							}else{
+					      var item = document.createElement('li');
+					      item.textContent = msg;
+					      messages.appendChild(item);
+					      window.scrollTo(0, document.body.scrollHeight);
+							}
+							if (!focused){
+								unread++;
+								document.title = unread + " unread messages!"
+							}
+					    });
+						
+						socket.on('system message', function(msg) {
+					      var item = document.createElement('b');
+					      item.textContent = msg;
+					      messages.appendChild(item);
+					      window.scrollTo(0, document.body.scrollHeight);
+							var blank = document.createElement('li');
+							blank.textContent = "";
+							messages.appendChild(blank);
+							window.scrollTo(0, document.body.scrollHeight);
+							if (!focused){
+								unread++;
+								document.title = unread + " unread messages!"
+							}
+					    });
+				</script>
+			</div>
+			<div id=dos class='child float-left-child'>
+				<link rel="icon" type="icon" href="https://art.pixilart.com/423a211cd945da2.png">
+				<img src="https://art.pixilart.com/423a211cd945da2.png" alt="Logo" width="50" height="50">
+				<label id="time">Time Wasted: </label>
+				<label id="minutes">00</label>:<label id="seconds">00</label>
+				<t id="copyRight" size=8>©LaineSnepper 2022 :: Version 0.0.9</t>
+				<label id="uptime">Server Uptime: </label>
+				<label id="uptimeCount">00</label>
+				<label> Connected Users: </label>
+				<label id = "counter">00</label>
+				<script>
+					var minutesLabel = document.getElementById("minutes");
+					var secondsLabel = document.getElementById("seconds");
+					    var upti = document.getElementById('uptimeCount');
+					setInterval(setTime, 1000);
+					socket.on('uptime', function(msg) {
+					upti.textContent = msg;
+					console.log("DONE");
+					});
+					socket.on('count', function(msg) {
+					counter.textContent = msg;
+					console.log("DONE");
+					});
+					var totalSeconds = 0;
+					function setTime() {
+					++totalSeconds;
+					secondsLabel.innerHTML = pad(totalSeconds % 60);
+					minutesLabel.innerHTML = pad(parseInt(totalSeconds / 60));
+					}
+				</script>
+	</body>
 	</div>
-</div>
- 
+	</div>
 </html>
