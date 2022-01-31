@@ -1,6 +1,6 @@
 # Welcome to Cat Chat!
 
-**Catchat** is a new instant messaging app designed around the furry community!  It's very early in development, and currently, a demo can be found at [This Link](catchat.info)
+**Catchat** is a new instant messaging app designed around the furry community!  It's very early in development, and currently, a demo can be found at [This Link](www.catchat.info)
 
 
 # Progress
