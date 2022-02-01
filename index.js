@@ -19,23 +19,26 @@ var days = 0;
 if (debug) {
 	var intervalID = setInterval(sendMessage, [1000]);
 }
-
+var egg = 0;
 function sendMessage() {
-	/*console.log("");
+	if(egg > 500){
+	console.log("");
 	console.log("System check #" + reportNumber);
 	console.log("Connected Clients: " + connectedUserCount);
 	console.log("Total Chats Sent: " + totalMessages);
 	console.log("");
-	console.log(":UPTIME:" + days + ":" + hours + ":" + minutes + ":" + seconds);
+	console.log(":UPTIME:");
 	console.log(seconds + " Seconds");
 	console.log(minutes + " Minutes");
 	console.log(hours + " Hours");
 	console.log(days + " Days");
-	*/
+	egg = 0;
+	reportNumber++
+	};
 	io.emit('uptime', (days + ":" + hours + ":" + minutes + ":" + seconds));
 	io.emit('count', connectedUserCount);
-	reportNumber++;
 	seconds++;
+	egg++;
 	countUp();
 }
 
@@ -61,7 +64,16 @@ io.on('connection', (socket) => {
 	console.log(socket.handshake.address);
 	var client_ip_address = socket.request.connection.remoteAddress;
 	socket.on('chat message', msg => {
-		
+		if(msg.startsWith("/")){
+			if(msg.startsWith("/hug ")){
+				io.emit('chat message', socket.nickname + " snags up and hugs " + msg.slice(5));
+			}else{
+				if(msg.startsWith("/boop ")){
+				io.emit('chat message', socket.nickname + " reaches over and boops " + msg.slice(5));
+				}
+			}
+		}else{
+			
 		io.emit('chat message', socket.nickname + " >> " + msg);
 		let newLength = messages.push(socket.nickname + " >> " + msg);
 		console.log("");
@@ -69,6 +81,7 @@ io.on('connection', (socket) => {
 		console.log("ID: " + socket.id)
 		console.log("");
 		totalMessages++;
+		}
 	});
 });
 io.on('connection', (socket) => {
